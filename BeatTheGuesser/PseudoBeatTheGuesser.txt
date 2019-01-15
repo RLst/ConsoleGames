@@ -1,0 +1,60 @@
+PSEUDO
+
+newGame()
+{
+	ask for difficulty level()
+	sets a random number between the ranges to guess
+	set random player to go first
+}
+
+STARTGAMELOOP 
+
+update()
+{
+	//getNextGuess() ask current player to make a guess
+	if currentPlayer = CPU
+		guess = CPU.getGuess()
+	else if currentPlayer = Player
+		guess = player.askGuess()
+		
+		
+	ProcessGuess()
+	{
+		if guess > numberToGuess		//Lower
+			setHighRange(guess)
+		else if guess < numberToGuess	//Higher
+			setLowRange(guess)
+		else 							//Just right
+			setWinner(currentPlayer)
+			error()		//Should never really arrive here if the check was done beforehand
+	}
+		
+	//checkForWinner
+	if checkGuess() == true			//RIGHT GUESS; End game
+		declareWinner(currentPlayer)
+		endGame()
+	//process guess and update ranges and switch turn
+	else 							//WRONG GUESS; Continue
+		updateRanges()
+		updateMessages()
+		changePlayers()
+	endif
+	
+	//
+				
+}
+
+ENDGAMELOOP (isRunning == true)
+
+
+updateRanges()
+{
+
+}
+
+
+changePlayers()
+{
+	(currentPlayer == 1 ? 0 : 1)
+}
+

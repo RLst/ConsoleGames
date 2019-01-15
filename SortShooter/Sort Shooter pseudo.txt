@@ -1,0 +1,239 @@
+///Classes
+Game
+SortShip
+Enemy
+
+
+//Defines
+let amountOfEnemies be 5
+let sortedList be amountOfEnemies
+let enemySpeed be 100	//constructor init; lower is faster
+let enemyRounds be 10
+
+let screen width be 25
+let screen height be 15
+
+let highscore = 0
+let score = 0
+
+
+//TITLE SCREEN:
+display title screen
+press enter to start
+
+//GAME:
+
+clear screen
+
+draw() 
+{
+drawInfo();
+drawEnemies();
+drawBullets();
+drawShip();
+}
+
+update()
+{
+executeCommand();
+	moveLeft();
+	moveRight();
+	shoot();
+	endGame();
+updateBullets();
+	IF bullet.isAlive()
+		bullet.move()
+updateKills();
+	IF enemy.isShot()
+		enemy.kill()
+		bullet.kill()
+updateLevels();
+	IF getLevelState() == false
+		IF getCurrentLevel() > TOTAL_ENEMY_ROUNDS
+			endgame()
+		ELSE
+			startNewLevel()
+
+
+	IF isLevelWon()
+		endLevel()
+		scoreUP()
+}
+
+
+
+
+
+update()
+{
+
+if there aren't any enemies AND current enemy round is less than enemyRounds
+	//start an enemy round()
+	increment enemyRounds
+	number of current enemies = amountOfEnemies
+
+	for amountOfEnemies
+		generate random enemyValue
+		set enemyValue into enemy
+		
+		//determine whether to sort ascending or descending
+		if rng() = 1
+			//sort ascending
+			
+		else if rng() = 0
+			//sort descending
+		endif
+	
+
+endif
+
+if left key pressed then move ship left
+if right key is pressed then move ship right
+
+if fire key is pressed
+	if bullet is not moving
+		shoot
+	endif
+endif
+
+if bullet is moving
+	continue moving bullet
+endif
+
+if bullet has collided with an enemy
+	destroy enemy hit
+	
+	//check if the enemy hit is the right one
+	if correctCheck list[currentEnemyCount] is not equal to enemy[currentEnemyCount]
+		//Wrong; reset 
+		set currentEnemyCount to startEnemyCount
+		set currentEnemy
+		reduce game.score by 5
+
+endif
+
+
+}
+
+
+sortUp
+
+rand
+
+======================
+
+Task list:
+
+[V] Fix level handling logic
+
+if no level is currently running
+	if max level reached
+		end game()
+	else
+		start a new level()
+	endif
+endif
+
+
+start a new level() {
+
+increase level number by 1
+
+for 1...amount of enemies {
+	spawn an enemy with a random number
+
+}
+}
+====================================
+[V] Fix bullet-enemy death logic
+
+//update
+for all enemies
+	if the enemy has been shot
+		set it as hit
+	endif
+next enemies
+
+//draw
+for all enemies
+	if the enemy has just been hit
+		draw enemy exploding
+	endif
+next
+
+//update
+for all enemies
+	if the enemy has been hit
+		kill enemy
+	endif
+next
+
+//draw
+for all enemies
+	if the enmy
+
+
+
+update: enemy gets set to hit
+draw: explosion is drawn for one frame
+update: enemy gets killed
+draw: enemy is no longer drawn
+
+
+
+========================================
+[V] Do logic to go to next level when all enemies are killed
+
+====================================
+[] Sort enemy values in order and put into an checking list
+[] Write 
+
+
+Problems:
+- The bullet that kills the last enemy of a level, also kills the next one that is respawned, which it's not supposed to
+
+When the final enemy of a level gets shot-> 
+updateKills()
+the enemy is killed
+the bullet is killed
+and a new level begins
+which respawns all the enemies.
+
+? How does an enemy get killed?
+> TO KILL CONDITIONS
+The bullet has to be live.
+The enemy has to be alive.
+The bullet's and enemy's x position are the same.
+The bullet's y position has to be less than 0.
+> AFTER KILL CONDITIONS
+enemy is set to alive = false
+bullet is set to alive = false
+
+? How does the player successfully win a level?
+> WIN CONDITIONS
+All enemies are killed, meaning the player sorted the enemies correctly.
+
+
+
+
+
+
+
+=============================================================
+- Must use sort function somehow
+- game will sort the enemies values into a separate list to be checked
+- after each kill, the enemy value will be compared with the list to see if it was the correct one.
+- the pointer of the check list will correspond with how many enemies have been killed ie. second enemy killed -> check second element
+- the amount of enemies killed will be incremented each time
+
+
+
+
+
+
+
+
+
+
+
+

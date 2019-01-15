@@ -1,0 +1,82 @@
+draw() {
+	drawInfo()
+	drawEnemies()
+		if enemy.isAlive() == true
+			enemy.draw()
+		elseif enemy.justBeenHit()
+			enemy.explode()
+		elseif enemy.isAlive() == false
+			cout << EMPTY_BLOCK
+	drawBullets()
+		if bullet.isAlive()
+			bullet.draw()
+		endif
+	drawShip()
+}
+
+update()
+{
+	executeCommand()
+		if 'a' pressed moveLeft()
+		if 'd' pressed moveRight()
+		if 'space' pressed shoot(&bullet)
+		if '/' pressed endGame()
+	
+	updateBullets()	for all bullets
+		if bullet.isAlive()
+			bullet.move()
+		endif
+	
+	updateKills()		for all enemies
+		if enemy.isShot()
+			kill enemy
+			kill bullet
+			set enemy.value to enemyKilledValue 
+		endif
+		
+		
+	?checkCorrectKills()
+		//check if its the right kill
+		if enemyKilledValue = correctKillValue[enemyLevelKillCount()]
+			increase score by 5
+		else	//player hit the wrong enemy
+			decrease score by 20
+			endLevel()
+		endif
+	
+	
+	updateLevels() 
+		//If level is won then reset
+		if enemyKillCount equal to max enemies		//player successfully won the round
+			endLevel()
+				set level state to false
+				kill all enemies 		//necessary? Yes!
+			increase score by 10
+		endif		
+		
+		//Check for end of levels, start a new level or end the game if all levels completed
+		if level is not running
+			increment level
+			if level limit reached
+				endGame()
+			else
+				startNewLevel()
+					set level to running
+					set enemy unsorted value to random number between 1-9
+					set enemy to alive
+					set enemy to not exploded
+					set enemy positions
+					go through all enemies, sort and place in correctKillValue[] array
+			endif		
+		endif
+			
+}
+
+
+
+
+
+
+
+
+
